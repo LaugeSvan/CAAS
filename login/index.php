@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('db_connect.php');
+include('../db_connect.php');
 ini_set('display_errors', 1); error_reporting(E_ALL); // Fejlsøgning
 
 $error = "";
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_name'] = $user['name'];
             
             // Send brugeren videre til dashboardet
-            header("Location: dashboard.php");
+            header("Location: ../dashboard");
             exit();
         } else {
             $error = "Forkert adgangskode.";
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         <?php endif; ?>
 
-        <form action="login.php" method="POST" class="space-y-5">
+        <form action="./" method="POST" class="space-y-5">
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">E-mail</label>
                 <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:border-indigo-500 transition font-mono text-sm">
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <p class="text-center text-slate-500 mt-8 text-sm">
-            Mangler du en profil? <a href="opret.php" class="text-indigo-600 font-bold hover:underline">Opret dig her</a>
+            Mangler du en profil? <a href="../opret" class="text-indigo-600 font-bold hover:underline">Opret dig her</a>
         </p>
     </div>
 

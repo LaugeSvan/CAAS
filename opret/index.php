@@ -1,5 +1,5 @@
 <?php
-include('db_connect.php');
+include('../db_connect.php');
 $error = "";
 $success = "";
 
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         <?php endif; ?>
 
-        <form action="opret.php" method="POST" class="space-y-5">
+        <form action="./" method="POST" class="space-y-5">
             <div>
                 <label class="block text-sm font-semibold text-slate-700 mb-1">Fulde navn</label>
                 <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition">
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
         <p class="text-center text-slate-500 mt-8 text-sm">
-            Har du allerede en profil? <a href="login.php" class="text-indigo-600 font-bold hover:underline">Log ind her</a>
+            Har du allerede en profil? <a href="../login/" class="text-indigo-600 font-bold hover:underline">Log ind her</a>
         </p>
     </div>
 

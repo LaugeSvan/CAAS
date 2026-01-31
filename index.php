@@ -28,8 +28,8 @@
                 <a href="#features" class="hover:text-indigo-600 transition">Funktioner</a>
                 <a href="#about" class="hover:text-indigo-600 transition">Om platformen</a>
                 <div class="h-6 w-px bg-slate-200"></div>
-                <a href="login.php" class="hover:text-indigo-600 transition">Log ind</a>
-                <a href="opret.php" class="bg-indigo-600 text-white px-6 py-2.5 rounded-full hover:bg-indigo-700 shadow-md shadow-indigo-200 transition">Start dit community</a>
+                <a href="/login/" class="hover:text-indigo-600 transition">Log ind</a>
+                <a href="/opret/" class="bg-indigo-600 text-white px-6 py-2.5 rounded-full hover:bg-indigo-700 shadow-md shadow-indigo-200 transition">Start dit community</a>
             </div>
         </div>
     </nav>
@@ -42,7 +42,7 @@
                 Alt hvad jeres community har brug for: Deleøkonomi, booking, forum og sikker kommunikation. Samlet på én platform.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="opret.php" class="bg-white text-indigo-600 px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-indigo-50 transition flex items-center justify-center gap-2">
+                <a href="/opret/" class="bg-white text-indigo-600 px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-indigo-50 transition flex items-center justify-center gap-2">
                     Opret gratis profil <i class="fas fa-arrow-right text-sm"></i>
                 </a>
                 <a href="#demo" class="bg-indigo-800/40 border border-indigo-400/30 backdrop-blur px-10 py-4 rounded-xl font-bold text-lg hover:bg-indigo-800/60 transition">
