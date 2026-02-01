@@ -68,6 +68,9 @@ $sql = "SELECT
 
 $res = $conn->query($sql);
 $data = $res->fetch_assoc();
+
+$page_title = htmlspecialchars($data['community_name']);
+include('../../../includes/header.php');
 ?>
 
 <!DOCTYPE html>
@@ -85,18 +88,6 @@ $data = $res->fetch_assoc();
     </style>
 </head>
 <body class="bg-[#f8fafc] min-h-screen antialiased">
-
-    <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <a href="../?id=<?php echo $community_id; ?>" class="text-slate-400 hover:text-indigo-600 transition"><i class="fas fa-arrow-left"></i></a>
-                <h1 class="font-black text-xl text-indigo-950 tracking-tight italic">CAAS <span class="text-slate-300 font-light mx-2">|</span> <?php echo htmlspecialchars($data['community_name']); ?></h1>
-            </div>
-            <div class="text-sm font-medium text-slate-500 italic">
-                Logget ind som: <span class="text-slate-900 font-bold"><?php echo htmlspecialchars($data['my_alias']); ?></span>
-            </div>
-        </div>
-    </nav>
 
     <main class="max-w-4xl mx-auto px-6 py-12">
         <div class="bg-white rounded-[3rem] border border-slate-200 shadow-sm overflow-hidden grid md:grid-cols-2">

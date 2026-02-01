@@ -37,6 +37,9 @@ $posts = $conn->query("SELECT p.*, m.alias_name FROM posts p
                        JOIN community_members m ON p.user_id = m.user_id 
                        WHERE p.community_id = '$community_id' AND m.community_id = '$community_id'
                        ORDER BY p.created_at DESC");
+
+$page_title = htmlspecialchars($community['name']);
+include('../includes/header.php');
 ?>
 
 <!DOCTYPE html>
@@ -48,20 +51,6 @@ $posts = $conn->query("SELECT p.*, m.alias_name FROM posts p
     <title><?php echo htmlspecialchars($community['name']); ?> - CAAS</title>
 </head>
 <body class="bg-[#f8fafc] min-h-screen">
-
-    <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <a href="../dashboard/" class="text-slate-400 hover:text-indigo-600 transition">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h1 class="font-black text-xl text-indigo-950 tracking-tight italic">CAAS <span class="text-slate-300 font-light mx-2">|</span> <?php echo htmlspecialchars($community['name']); ?></h1>
-            </div>
-            <div class="text-sm font-medium text-slate-500 italic">
-                Logget ind som: <span class="text-slate-900 font-bold"><?php echo htmlspecialchars($community['alias_name']); ?></span>
-            </div>
-        </div>
-    </nav>
 
     <main class="max-w-7xl mx-auto px-6 py-10">
         <div class="grid lg:grid-cols-4 gap-8">
