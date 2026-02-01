@@ -11,7 +11,7 @@ $community_id = $conn->real_escape_string($_GET['id']);
 $asset_id = $conn->real_escape_string($_GET['asset_id']);
 $user_id = $_SESSION['user_id'];
 
-// 1. Hent info om tingen og ejeren
+// Hent info om tingen og ejeren
 $asset_sql = "SELECT a.*, u.name as owner_name, m.alias_name as owner_alias 
               FROM assets a 
               JOIN users u ON a.owner_id = u.id 
@@ -20,7 +20,7 @@ $asset_sql = "SELECT a.*, u.name as owner_name, m.alias_name as owner_alias
 $asset_res = $conn->query($asset_sql);
 $item = $asset_res->fetch_assoc();
 
-// 2. Håndter booking-anmodning
+// Håndter booking-anmodning
 $msg = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start = $_POST['start_date'];
@@ -51,6 +51,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+// Hent ALT på én gang: Ting-info, Ejer-info, Fællesskab-navn og DIN alias
+$sql = "SELECT 
+            a.*, 
+            u.name as owner_name, 
+            m_owner.alias_name as owner_alias,
+            c.name as community_name,
+            m_me.alias_name as my_alias
+        FROM assets a
+        JOIN users u ON a.owner_id = u.id
+        JOIN communities c ON a.community_id = c.id
+        JOIN community_members m_owner ON a.owner_id = m_owner.user_id AND a.community_id = m_owner.community_id
+        JOIN community_members m_me ON m_me.user_id = '$user_id' AND m_me.community_id = a.community_id
+        WHERE a.id = '$asset_id'";
+
+$res = $conn->query($sql);
+$data = $res->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -70,11 +87,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="bg-[#f8fafc] min-h-screen antialiased">
 
     <nav class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center text-sm font-bold italic">
-            <a href="../?id=<?php echo $community_id; ?>" class="text-slate-400 hover:text-indigo-600 transition flex items-center gap-2">
-                <i class="fas fa-chevron-left text-[10px]"></i> Fortryd booking
-            </a>
-            <span class="text-slate-900 italic uppercase tracking-tighter">Booking-system</span>
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="../?id=<?php echo $community_id; ?>" class="text-slate-400 hover:text-indigo-600 transition"><i class="fas fa-arrow-left"></i></a>
+                <h1 class="font-black text-xl text-indigo-950 tracking-tight italic">CAAS <span class="text-slate-300 font-light mx-2">|</span> <?php echo htmlspecialchars($data['community_name']); ?></h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 italic">
+                Logget ind som: <span class="text-slate-900 font-bold"><?php echo htmlspecialchars($data['my_alias']); ?></span>
+            </div>
         </div>
     </nav>
 
