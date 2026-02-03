@@ -21,7 +21,7 @@
                 </div>
             </a>
 
-            <a href="/logout/" class="text-slate-500 hover:text-red-500 transition">
+            <a href="/logout.php" class="text-slate-500 hover:text-red-500 transition">
                 <i class="fas fa-power-off text-xs"></i>
             </a>
         </div>
