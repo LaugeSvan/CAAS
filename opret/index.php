@@ -14,11 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($checkEmail->num_rows > 0) {
         $error = "Denne e-mail er allerede i brug.";
     } else {
-        $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
-        if ($conn->query($sql) === TRUE) {
-            $success = "Din profil er oprettet! Du kan nu logge ind.";
+        if (!isset($_POST['terms'])) {
+            $error = "Du skal acceptere vilkårene for at oprette en profil.";
         } else {
-            $error = "Der skete en fejl: " . $conn->error;
+            $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+            if ($conn->query($sql) === TRUE) {
+                $success = "Din profil er oprettet! Du kan nu logge ind.";
+            } else {
+                $error = "Der skete en fejl: " . $conn->error;
+            }
         }
     }
 }
