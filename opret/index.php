@@ -67,6 +67,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" name="password" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition">
             </div>
 
+            <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+                <div class="flex items-center h-5">
+                    <input id="terms" name="terms" type="checkbox" required 
+                        class="w-5 h-5 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500 cursor-pointer">
+                </div>
+                <label for="terms" class="text-[11px] font-bold italic text-slate-500 leading-tight uppercase tracking-tight">
+                    Jeg accepterer CAAS <a href="/legal/vilkaar.php" class="text-indigo-600 underline">Vilkår for brug</a> og har læst <a href="/legal/privatliv.php" class="text-indigo-600 underline">Privatlivspolitikken</a>.
+                </label>
+            </div>
+
             <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold text-lg hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition transform active:scale-[0.98]">
                 Opret min profil
             </button>
