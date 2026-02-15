@@ -120,6 +120,9 @@ include('../../includes/header.php');
                 <a href="./?id=<?php echo $community_id; ?>" class="flex items-center gap-3 p-4 rounded-2xl bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-100 transition italic">
                     <i class="fas fa-tools w-5"></i> Deleøkonomi
                 </a>
+                <a href="../kalender/?id=<?php echo $community_id; ?>" class="flex items-center gap-3 p-4 rounded-2xl text-slate-600 hover:bg-white transition font-bold italic">
+                    <i class="fas fa-calendar-days w-5 text-indigo-500"></i> Kalender
+                </a>
             </aside>
 
             <div class="lg:col-span-3 space-y-12">

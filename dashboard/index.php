@@ -41,6 +41,15 @@ $sql_explore = "SELECT * FROM communities
                 LIMIT 4";
 $explore_communities = $conn->query($sql_explore);
 
+// 5. Kommende events fra brugerens communities
+$sql_events = "SELECT e.id, e.title, e.event_at, c.name as community_name, c.id as community_id
+               FROM events e
+               JOIN communities c ON e.community_id = c.id
+               JOIN community_members m ON m.community_id = c.id AND m.user_id = '$user_id'
+               WHERE e.event_at >= NOW()
+               ORDER BY e.event_at ASC LIMIT 5";
+$upcoming_events = $conn->query($sql_events);
+
 $join_error = isset($_GET['join_error']) ? $_GET['join_error'] : '';
 $page_title = "Dashboard"; 
 include('../includes/header.php');
@@ -175,7 +184,30 @@ include('../includes/header.php');
                 </div>
 
                 <div class="space-y-4">
-                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">Aktive Aftaler 📅</h3>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">Kommende events 📅</h3>
+                    <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden p-2">
+                        <?php if ($upcoming_events && $upcoming_events->num_rows > 0): ?>
+                            <div class="space-y-1">
+                                <?php while($ev = $upcoming_events->fetch_assoc()): ?>
+                                    <a href="../community/kalender/view.php?id=<?php echo $ev['community_id']; ?>&event_id=<?php echo $ev['id']; ?>" class="block p-4 rounded-2xl hover:bg-slate-50 transition border border-transparent">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <p class="text-[9px] font-black uppercase text-indigo-400 mb-1"><?php echo htmlspecialchars($ev['community_name']); ?></p>
+                                                <h5 class="font-black text-slate-900 text-sm italic"><?php echo htmlspecialchars($ev['title']); ?></h5>
+                                            </div>
+                                            <span class="text-[8px] font-black uppercase text-slate-400"><?php echo date('d/m H:i', strtotime($ev['event_at'])); ?></span>
+                                        </div>
+                                    </a>
+                                <?php endwhile; ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="p-8 text-center italic text-xs text-slate-400 font-bold uppercase tracking-tighter leading-relaxed">Ingen kommende<br>events.</div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">Aktive Aftaler 🛠️</h3>
                     <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden p-2">
                         <?php if ($my_reservations->num_rows > 0): ?>
                             <div class="space-y-1">

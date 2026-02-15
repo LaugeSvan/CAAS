@@ -38,6 +38,11 @@ $posts = $conn->query("SELECT p.*, m.alias_name FROM posts p
                        WHERE p.community_id = '$community_id' AND m.community_id = '$community_id'
                        ORDER BY p.created_at DESC");
 
+// 5. Kommende events til teaser
+$upcoming_events = $conn->query("SELECT id, title, event_at FROM events 
+    WHERE community_id = '$community_id' AND event_at >= NOW() 
+    ORDER BY event_at ASC LIMIT 3");
+
 $page_title = htmlspecialchars($community['name']);
 include('../includes/header.php');
 ?>
@@ -62,6 +67,9 @@ include('../includes/header.php');
                 </a>
                 <a href="./dele/?id=<?php echo $community_id; ?>" class="flex items-center gap-3 p-4 rounded-2xl text-slate-600 hover:bg-white hover:shadow-sm transition font-bold italic">
                     <i class="fas fa-tools w-5 text-indigo-500"></i> Deleøkonomi
+                </a>
+                <a href="./kalender/?id=<?php echo $community_id; ?>" class="flex items-center gap-3 p-4 rounded-2xl text-slate-600 hover:bg-white hover:shadow-sm transition font-bold italic">
+                    <i class="fas fa-calendar-days w-5 text-indigo-500"></i> Kalender
                 </a>
             </aside>
 
@@ -108,7 +116,8 @@ include('../includes/header.php');
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-[2rem] border border-slate-200 sticky top-24">
+                    <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-[2rem] border border-slate-200">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="font-black text-slate-900 italic">Seneste i Deleøkonomi</h3>
                             <a href="./dele/?id=<?php echo $community_id; ?>" class="text-indigo-600 text-xs font-bold hover:underline italic">Se alle &rarr;</a>
@@ -125,6 +134,26 @@ include('../includes/header.php');
                                 <p class="text-slate-400 text-sm italic p-4 text-center">Ingen ting delt endnu...</p>
                             <?php endif; ?>
                         </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-[2rem] border border-slate-200 sticky top-24">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-black text-slate-900 italic">Kommende events</h3>
+                            <a href="./kalender/?id=<?php echo $community_id; ?>" class="text-indigo-600 text-xs font-bold hover:underline italic">Se alle &rarr;</a>
+                        </div>
+                        <div class="space-y-3">
+                            <?php if ($upcoming_events->num_rows > 0): ?>
+                                <?php while($ev = $upcoming_events->fetch_assoc()): ?>
+                                    <a href="./kalender/view.php?id=<?php echo $community_id; ?>&event_id=<?php echo $ev['id']; ?>" class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100 hover:bg-indigo-50 hover:border-indigo-100 transition group">
+                                        <span class="text-sm font-bold text-slate-700 italic group-hover:text-indigo-700"><?php echo htmlspecialchars($ev['title']); ?></span>
+                                        <span class="text-[9px] bg-white border px-2 py-1 rounded-lg text-slate-400 font-black italic uppercase"><?php echo date('d/m H:i', strtotime($ev['event_at'])); ?></span>
+                                    </a>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p class="text-slate-400 text-sm italic p-4 text-center">Ingen kommende events...</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                     </div>
 
                 </div> </div>
