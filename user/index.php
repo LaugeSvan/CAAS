@@ -18,7 +18,9 @@ $user = $user_query->fetch_assoc();
 
 // Beskeder ved succes/fejl
 $status_msg = "";
+$error_msg = "";
 if (isset($_GET['updated'])) $status_msg = "Profilen blev opdateret!";
+if (isset($_GET['error'])) $error_msg = htmlspecialchars($_GET['error']);
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +38,12 @@ if (isset($_GET['updated'])) $status_msg = "Profilen blev opdateret!";
         <?php if($status_msg): ?>
             <div class="mb-8 bg-emerald-50 border border-emerald-200 p-4 rounded-2xl text-emerald-600 font-bold italic text-sm">
                 <i class="fas fa-check-circle mr-2"></i> <?php echo $status_msg; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if($error_msg): ?>
+            <div class="mb-8 bg-red-50 border border-red-200 p-4 rounded-2xl text-red-600 font-bold italic text-sm">
+                <i class="fas fa-exclamation-circle mr-2"></i> <?php echo $error_msg; ?>
             </div>
         <?php endif; ?>
 
