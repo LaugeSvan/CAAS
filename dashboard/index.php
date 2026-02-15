@@ -41,6 +41,7 @@ $sql_explore = "SELECT * FROM communities
                 LIMIT 4";
 $explore_communities = $conn->query($sql_explore);
 
+$join_error = isset($_GET['join_error']) ? $_GET['join_error'] : '';
 $page_title = "Dashboard"; 
 include('../includes/header.php');
 ?>
@@ -64,6 +65,23 @@ include('../includes/header.php');
                 <p class="text-slate-400 mt-2 text-lg italic font-medium uppercase tracking-tight">Du er aktiv i <?php echo $my_communities->num_rows; ?> fællesskaber</p>
             </div>
             
+            <?php if ($join_error === 'invalid_code'): ?>
+            <div class="bg-red-50 border border-red-200 p-4 rounded-3xl flex items-center gap-4">
+                <i class="fas fa-key text-red-400 text-xl"></i>
+                <div>
+                    <p class="text-xs font-black uppercase text-red-800">Ugyldig invitationskode</p>
+                    <p class="text-red-600 text-sm italic">Tjek koden og prøv igen.</p>
+                </div>
+            </div>
+            <?php elseif ($join_error === 'db'): ?>
+            <div class="bg-red-50 border border-red-200 p-4 rounded-3xl flex items-center gap-4">
+                <i class="fas fa-exclamation-triangle text-red-400 text-xl"></i>
+                <div>
+                    <p class="text-xs font-black uppercase text-red-800">Noget gik galt</p>
+                    <p class="text-red-600 text-sm italic">Prøv igen senere.</p>
+                </div>
+            </div>
+            <?php endif; ?>
             <?php if ($has_actions): ?>
             <div class="bg-amber-400 p-4 rounded-3xl shadow-xl shadow-amber-100 flex items-center gap-4 animate-bounce">
                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-amber-500 shadow-sm">
@@ -143,6 +161,19 @@ include('../includes/header.php');
             </div>
 
             <div class="space-y-10">
+                <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm p-6">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic mb-4">Tilmeld med kode</h3>
+                    <p class="text-slate-500 text-xs italic mb-4">Har du fået en invitationskode fra et fællesskab? Indtast den her.</p>
+                    <form action="join_by_code.php" method="POST" class="flex gap-2">
+                        <input type="text" name="invite_code" maxlength="8" placeholder="FX A1B2C3D4" 
+                               class="flex-1 px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none font-mono text-sm uppercase tracking-widest"
+                               value="<?php echo isset($_GET['code']) ? htmlspecialchars($_GET['code']) : ''; ?>">
+                        <button type="submit" class="bg-indigo-600 text-white px-5 py-3 rounded-xl font-bold text-xs hover:bg-indigo-700 transition italic uppercase">
+                            Join
+                        </button>
+                    </form>
+                </div>
+
                 <div class="space-y-4">
                     <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">Aktive Aftaler 📅</h3>
                     <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden p-2">
