@@ -1,14 +1,14 @@
 <?php
 session_start();
-include('../db_connect.php');
-
-$page_title = "Indstillinger";
-include('../includes/header.php');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login/");
     exit();
 }
+
+include('../db_connect.php');
+$page_title = "Indstillinger";
+include('../includes/header.php');
 
 $user_id = $_SESSION['user_id'];
 
@@ -16,11 +16,14 @@ $user_id = $_SESSION['user_id'];
 $user_query = $conn->query("SELECT * FROM users WHERE id = '$user_id'");
 $user = $user_query->fetch_assoc();
 
+// Sæt session name, hvis du bruger det i header
+if (!isset($_SESSION['user_name'])) {
+    $_SESSION['user_name'] = $user['name'];
+}
+
 // Beskeder ved succes/fejl
-$status_msg = "";
-$error_msg = "";
-if (isset($_GET['updated'])) $status_msg = "Profilen blev opdateret!";
-if (isset($_GET['error'])) $error_msg = htmlspecialchars($_GET['error']);
+$status_msg = isset($_GET['updated']) ? "Profilen blev opdateret!" : "";
+$error_msg = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
 ?>
 
 <!DOCTYPE html>
