@@ -28,7 +28,7 @@ if (isset($_GET['error'])) $error_msg = htmlspecialchars($_GET['error']);
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <title>Indstillinger - CAAS</title>
 </head>
 <body class="bg-[#f8fafc] text-slate-900 antialiased">

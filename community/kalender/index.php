@@ -39,7 +39,7 @@ include('../../includes/header.php');
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <title>Kalender - <?php echo htmlspecialchars($community['name']); ?> - CAAS</title>
 </head>
 <body class="bg-[#f8fafc] min-h-screen antialiased">
