@@ -72,7 +72,7 @@ $error_msg = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
                         <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
                             <p class="text-[10px] font-black text-indigo-300 uppercase italic">MitID Verificering</p>
                             <p class="text-xs font-bold text-slate-400 mt-1">Ikke tilsluttet</p>
-                            <button class="mt-3 w-full bg-white text-slate-900 py-2 rounded-xl text-[10px] font-black uppercase hover:bg-indigo-400 transition">Start Verificering</button>
+                            <button class="mt-3 w-full bg-white text-slate-900 py-2 rounded-xl text-[10px] font-black uppercase hover:bg-indigo-400 transition" onclick="alert('MitID Verificering er ikke tilgængelig endnu')">Start Verificering</button>
                         </div>
                     </div>
                 </div>
