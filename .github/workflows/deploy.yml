@@ -19,3 +19,4 @@ jobs:
         port: 21
         local-dir: ./
         server-dir: public_html/caas/
+        dangerous-disable-tls-verifier: true
