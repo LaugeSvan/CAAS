@@ -1,21 +1,19 @@
-name: Deploy via FTP
+name: Deploy via SFTP
 on: push
 
 jobs:
-  web-deploy:
-    name: Deploy
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        protocol: sftp
-        port: 22
-        local-dir: ./
-        server-dir: public_html/caas/
+      - name: 🚀 Deploy to Hetzner via SFTP
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
+          REMOTE_HOST: ${{ secrets.FTP_SERVER }}
+          REMOTE_USER: ${{ secrets.FTP_USERNAME }}
+          REMOTE_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SOURCE: "./"
+          TARGET: "public_html/caas/"
+          ARGS: "-rlgoDzvc -i --delete" # Standard sync settings
