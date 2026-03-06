@@ -59,6 +59,9 @@ $error_msg = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : "";
                     </div>
                     <h3 class="font-black text-xl italic italic leading-tight"><?php echo htmlspecialchars($user['name']); ?></h3>
                     <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Bruger ID: #<?php echo $user_id; ?></p>
+                    <a href="pages/" class="mt-4 inline-block text-indigo-600 hover:text-indigo-700 font-bold italic text-sm">
+                        <i class="fas fa-file mr-1"></i> Mine sider
+                    </a>
                 </div>
 
                 <div class="bg-slate-900 p-6 rounded-[2.5rem] text-white shadow-xl">
