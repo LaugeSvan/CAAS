@@ -8,12 +8,13 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      - name: 🚀 Deploy to Hetzner via SFTP
-        uses: easingthemes/ssh-deploy@v5.1.0
+      - name: 🚀 SFTP Upload
+        uses: Dylan700/sftp-upload-action@v1.2.3
         with:
-          REMOTE_HOST: ${{ secrets.FTP_SERVER }}
-          REMOTE_USER: ${{ secrets.FTP_USERNAME }}
-          REMOTE_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          SOURCE: "./"
-          TARGET: "public_html/caas/"
-          ARGS: "-rlgoDzvc -i --delete" # Standard sync settings
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 22
+          # This maps your current folder to the server folder
+          uploads: |
+            ./ => public_html/caas/
